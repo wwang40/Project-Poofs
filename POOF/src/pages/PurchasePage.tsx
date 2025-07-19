@@ -1,10 +1,11 @@
 import { Button } from "@/components/ui/button"
 import { BadgeDollarSign } from "lucide-react"
 import { Link, useNavigate } from "react-router"
-
+import { getDatabase } from "firebase/database";
 
 const PurchasePage = () => {
   const navigate = useNavigate()
+  const database = getDatabase();
   return (
     <>
         <div className="bg-[#5a1e1a] min-h-screen  h-[496] w-[400] flex items-center justify-center">

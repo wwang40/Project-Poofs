@@ -69,6 +69,16 @@ return (
           <Switch checked={POOF} onCheckedChange={onclick} />
         </div>
 
+        {/* Signin Button */}
+        <div className="flex justify-center">
+          <Button
+            asChild
+            className="bg-[#3d3d3d] text-white text-2xl font-bold rounded-lg px-10 py-3 shadow border border-black"
+          >
+            <Link to="/auth">Sign in</Link>
+          </Button>
+        </div>
+
         {/* Gatcha Button */}
         <div className="flex justify-center">
           <Button
