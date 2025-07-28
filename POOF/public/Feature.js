@@ -52,12 +52,12 @@ class Feature {
                 height: 20px !important;
                 margin: 0 !important;
                 padding: 0 !important;
-                background: red;
+                background: transparent;
                 z-index: 2147483647; /* Maximum possible */
                 transform: translateZ(0);
                 box-sizing: content-box !important;
                 display: none;
-                right: 50px;
+                right: 100px;
                 top: 0px;
             }
         `)
