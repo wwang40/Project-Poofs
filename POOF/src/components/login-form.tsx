@@ -26,6 +26,7 @@ export function LoginForm({
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [isSignUp, setIsSignUp] = useState(false)
+  const [isFailedSignIn, setisFailedSignIn] = useState(false)
 
   const writeUserToFirestore = async (user: any) => {
     const userRef = doc(db, "users", user.uid)
@@ -45,8 +46,10 @@ export function LoginForm({
 
       await writeUserToFirestore(userCredential.user)
       navigate("/home")
+      setisFailedSignIn(false)
     } catch (error) {
       console.error(`${isSignUp ? "Sign up" : "Login"} failed`, error)
+      setisFailedSignIn(true)
     }
   }
 
@@ -95,6 +98,7 @@ export function LoginForm({
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
+              {isFailedSignIn ? <p className="text-[#bc2f32]">*email or password is incorrect</p> : <div></div>}
               <div className="flex flex-col gap-3">
                 <Button type="submit" className="w-full">
                   {isSignUp ? "Sign Up" : "Login"}
@@ -125,15 +129,6 @@ export function LoginForm({
                   </button>
                 </>
               )}
-            </div>
-            <div className="mt-4 text-center text-sm">
-              <button
-                type="button"
-                className="underline underline-offset-4"
-                onClick={() => navigate(-1)}
-              >
-                back
-              </button>
             </div>
           </form>
         </CardContent>

@@ -13,7 +13,6 @@ import { useNavigate } from "react-router"
 
 function App() {
   const [POOF, togglePOOF] = useState(false)
-
   const navigate = useNavigate()
   
   useEffect(() => { //Fetch POOF variable from local storage

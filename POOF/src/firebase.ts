@@ -8,8 +8,8 @@ import { getFirestore } from "firebase/firestore"
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyCRj2T8VANHbf7EBFK1XThBf1fDEa2PpVc",
-  authDomain: "poof-4a122.firebaseapp.com",
+  apiKey: import.meta.env.VITE_FIREBASE_KEY,
+  authDomain: import.meta.env.VITE_AUTH_DOMAIN,
   databaseURL: "https://poof-4a122-default-rtdb.firebaseio.com",
   projectId: "poof-4a122",
   storageBucket: "poof-4a122.firebasestorage.app",
