@@ -18,7 +18,7 @@ class Feature {
                 const jokeList = [
                     "Why did the blind man fall into the waterhole? Because they couldn't see that well!",
                     "Why did the old man throw a stick of butter? Because he wanted to see a butterfly…",
-                    "Why can't you recite the ABCs in the Bermuda Triangle? Because you'll get stuck at C",
+                    "Why can't you recite the alphabet in the Bermuda Triangle? Because you'll get stuck at C",
                     "What is a wind turbine's favorite music? I heard they're big metal fans",
                     "Did you hear how janitors are the best boxers? They sweep the competition!"
                 ]
@@ -50,15 +50,16 @@ class Feature {
                 position: absolute;
                 width: 150px !important;
                 height: 20px !important;
-                margin: 0 !important;
+                margin-top: 0px !important;
                 padding: 0 !important;
                 background: transparent;
                 z-index: 2147483647; /* Maximum possible */
                 transform: translateZ(0);
                 box-sizing: content-box !important;
                 display: none;
-                right: 100px;
+                right: 0px;
                 top: 0px;
+                font-size: 15px;
             }
         `)
 
