@@ -35,12 +35,14 @@ class POOF {
 
             const poofSprite = this.img.replace(/"/g, '\\"');
             console.log('Image path:', poofSprite.replace(/"/g, '\\"'));
+            let scale = 1;
+            const poofDimensions = 100 * scale; // 100 is default
             Add_Custom_CSS(`
                 .poof {
                     all: initial;
                     position: fixed;
-                    width: 100px !important;
-                    height: 100px !important;
+                    width: ${poofDimensions}px !important;
+                    height: ${poofDimensions}px !important;
                     margin: 0 !important;
                     padding: 0 !important;
                     background-image: url(' ${poofSprite}');
@@ -55,35 +57,20 @@ class POOF {
                     pointer-events: auto;
                 }
                 .speech_bubble {
-                    position: fixed;
+                    line-height: normal !important;
+                    position: absolute;
                     background: #ffffff;
                     color: #000000;
                     font-family: Arial;
-                    font-size: 20px;
-                    line-height: 120px;
                     text-align: center;
                     width: 150px;
                     height: ${this.features.length * 20}px;
                     border-radius: 10px;
                     padding: 0px;
                     z-index: 2147483645;
-                    right: 100px;
-                    top: -100px;
+                    right: 110% !important;
+                    top: 0% !important;
                     display: none;
-                }
-                .speech_bubble:after {
-                    content: '';
-                    position: absolute;
-                    right: 0;
-                    top: 50%;
-                    width: 0;
-                    height: 0;
-                    border: 20px solid transparent;
-                    border-left-color: #ffffffff;
-                    border-right: 0;
-                    border-top: 0;
-                    margin-top: -10px;
-                    margin-right: -20px;
                 }
             `)
     }
@@ -131,6 +118,8 @@ class POOF {
             // Update position
             elmnt.style.left = (newX - 40) + "px";
             elmnt.style.top = (newY - 10) + "px";
+            console.log(newX - 40);
+            console.log(newY - 10);
         }
 
         function closeDragElement() {
@@ -200,13 +189,14 @@ class POOF {
     setUpFeatures() {
         let speech_bubble = document.createElement("div");
         speech_bubble.className = "speech_bubble";
-        this.css_element.appendChild(speech_bubble);
 
         for (let i = 0; i < this.features.length; i ++) {
             let feature = new Feature(this.features[i].toString, i);
             feature.Create_Custom_Element(this.features[i].toString());
-            this.css_element.appendChild(feature.getCSS())
+            speech_bubble.appendChild(feature.getCSS())
         }
+
+        this.css_element.append(speech_bubble);
     }
 
     handleFeatureDisplay(document) {
