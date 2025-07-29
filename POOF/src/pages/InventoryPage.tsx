@@ -9,7 +9,7 @@ const InventoryPage = () => {
   return (
     <>
       <div className="bg-[#5a1e1a] h-[496] w-[400] min-h-screen flex items-center justify-center">
-      <div className="bg-[#2b2b2b] rounded-lg border border-white p-6 h-[496] w-[400] space-y-6 shadow-lg items-center">
+      <div className="bg-[#2b2b2b] rounded-lg border p-6 h-[496] w-[400] space-y-6 shadow-lg items-center">
 
         {/* Top bar */}
       <div className="w-full flex justify-between items-center px-4">

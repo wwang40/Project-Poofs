@@ -10,12 +10,12 @@ import PurchasePage from './pages/PurchasePage.tsx'
 import UserAuthenticationPage from './pages/UserAuthenticationPage.tsx'
 
 const router = createMemoryRouter([
-  {path:'/', element:<App/>},
+  {path:'/', element:<UserAuthenticationPage/>},
+  {path:'/home', element:<App/>},
   {path:'/settings', element:<SettingsPage/>},
   {path:'/inventory', element:<InventoryPage/>},
   {path:'/gatcha', element:<GatchaPage/>},
   {path:'/purchase', element:<PurchasePage/>},
-  {path:'/auth', element:<UserAuthenticationPage/>}
 ])
 
 createRoot(document.getElementById('root')!).render(
