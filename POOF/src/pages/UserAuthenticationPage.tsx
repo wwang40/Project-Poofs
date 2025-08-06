@@ -13,7 +13,7 @@ const UserAuthenticationPage = () => {
         navigate("/home")
       }
     })
-    return () => unsubscribe() // Cleanup the listener
+    return () => unsubscribe()
   }, [navigate])
 
   return (

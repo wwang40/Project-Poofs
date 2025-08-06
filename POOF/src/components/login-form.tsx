@@ -32,7 +32,8 @@ export function LoginForm({
     const userRef = doc(db, "users", user.uid)
     await setDoc(userRef, {
       email: user.email,
-      name: user.displayName || "", 
+      coins: 0,
+      poofs:[],
       createdAt: serverTimestamp(),
     }, { merge: true }) 
   }
@@ -98,7 +99,7 @@ export function LoginForm({
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
-              {isFailedSignIn ? <p className="text-[#bc2f32]">*email or password is incorrect</p> : <div></div>}
+              {isFailedSignIn ? isSignUp ? <p className="text-[#bc2f32]">*email already in use</p> :<p className="text-[#bc2f32]">*email or password is incorrect</p> : <div></div>}
               <div className="flex flex-col gap-3">
                 <Button type="submit" className="w-full">
                   {isSignUp ? "Sign Up" : "Login"}
