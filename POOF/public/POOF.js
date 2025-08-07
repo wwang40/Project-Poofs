@@ -71,6 +71,7 @@ class POOF {
                     right: 110% !important;
                     top: 0% !important;
                     display: none;
+                    margin-top: 0px !important;
                 }
             `)
     }
