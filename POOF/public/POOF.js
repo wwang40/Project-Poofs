@@ -35,13 +35,14 @@ class POOF {
 
             const poofSprite = this.img.replace(/"/g, '\\"');
             console.log('Image path:', poofSprite.replace(/"/g, '\\"'));
+            let scale = 1;
+            const poofDimensions = 100 * scale; // 100 is default
             Add_Custom_CSS(`
                 .poof {
-
                     all: initial;
                     position: fixed;
-                    width: 50px !important;
-                    height: 50px !important;
+                    width: ${poofDimensions}px !important;
+                    height: ${poofDimensions}px !important;
                     margin: 0 !important;
                     padding: 0 !important;
                     background-image: url(' ${poofSprite}');
@@ -55,6 +56,23 @@ class POOF {
                     ${`top: ${positionY};`}
                     pointer-events: auto;
                 }
+                .speech_bubble {
+                    line-height: normal !important;
+                    position: absolute;
+                    background: #ffffff;
+                    color: #000000;
+                    font-family: Arial;
+                    text-align: center;
+                    width: 150px;
+                    height: ${this.features.length * 20}px;
+                    border-radius: 10px;
+                    padding: 0px;
+                    z-index: 2147483645;
+                    right: 110% !important;
+                    top: 0% !important;
+                    display: none;
+                    margin-top: 0px !important;
+                }
             `)
     }
 
@@ -63,7 +81,7 @@ class POOF {
         const custom_element = document.createElement(tag);
         custom_element.className = attr_name || 'poof';
         if (id) custom_element.id = id;
-        //if (text) custom_element.textContent = text; Commented off for testing
+        //if (text) custom_element.textContent = text; // Comment off for testing
         document.body.append(custom_element);
         this.css_element = custom_element;
     }
@@ -99,8 +117,10 @@ class POOF {
             const newY = e.clientY;
             
             // Update position
-            elmnt.style.left = (newX - 20) + "px";
-            elmnt.style.top = (newY - 5) + "px";
+            elmnt.style.left = (newX - 40) + "px";
+            elmnt.style.top = (newY - 10) + "px";
+            console.log(newX - 40);
+            console.log(newY - 10);
         }
 
         function closeDragElement() {
@@ -152,7 +172,7 @@ class POOF {
                     
                 this.handleFeatureDisplay(document)
                 
-                //alert("You clicked the square! Duration: " + duration + "ms");
+                console.log("You clicked the POOF! Duration: " + duration + "ms");
             }
         };
 
@@ -168,15 +188,28 @@ class POOF {
     }
 
     setUpFeatures() {
+        let speech_bubble = document.createElement("div");
+        speech_bubble.className = "speech_bubble";
+
         for (let i = 0; i < this.features.length; i ++) {
             let feature = new Feature(this.features[i].toString, i);
             feature.Create_Custom_Element(this.features[i].toString());
-            this.css_element.appendChild(feature.getCSS())
+            speech_bubble.appendChild(feature.getCSS())
         }
+
+        this.css_element.append(speech_bubble);
     }
 
     handleFeatureDisplay(document) {
-        const elements = document.getElementsByClassName("feature");
+        let elements = document.getElementsByClassName("feature");
+        Array.from(elements).forEach(element => {
+            if (element.style.display == "block") {
+                element.style.display = "none"
+            } else {
+                element.style.display = "block"
+            }
+        })
+        elements = document.getElementsByClassName("speech_bubble");
         Array.from(elements).forEach(element => {
             if (element.style.display == "block") {
                 element.style.display = "none"
