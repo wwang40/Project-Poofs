@@ -7,13 +7,15 @@ import SettingsPage from './pages/SettingsPage.tsx'
 import InventoryPage from './pages/InventoryPage.tsx'
 import GatchaPage from './pages/GatchaPage.tsx'
 import PurchasePage from './pages/PurchasePage.tsx'
+import UserAuthenticationPage from './pages/UserAuthenticationPage.tsx'
 
 const router = createMemoryRouter([
-  {path:'/', element:<App/>},
+  {path:'/', element:<UserAuthenticationPage/>},
+  {path:'/home', element:<App/>},
   {path:'/settings', element:<SettingsPage/>},
   {path:'/inventory', element:<InventoryPage/>},
   {path:'/gatcha', element:<GatchaPage/>},
-  {path:'/purchase', element:<PurchasePage/>}
+  {path:'/purchase', element:<PurchasePage/>},
 ])
 
 createRoot(document.getElementById('root')!).render(
