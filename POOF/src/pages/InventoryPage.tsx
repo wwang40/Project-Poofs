@@ -1,8 +1,10 @@
 import TopBar from "@/components/top-bar"
 import { Button } from "@/components/ui/button"
 import { ScrollArea } from "@/components/ui/scroll-area"
+import { useState } from "react"
 
 const InventoryPage = () => {
+  const [selected, setSelected] = useState<number | null>(null)
   return (
     <>
       <div className="bg-[#5a1e1a] h-[496] w-[400] min-h-screen flex items-center justify-center">
@@ -18,8 +20,10 @@ const InventoryPage = () => {
             <div
               key={i}
               className={`w-16 h-16 rounded-md border-2 ${
-                i === 0 ? 'border-white' : 'border-gray-600'
-              } bg-[#3a3a3a] flex items-center justify-center text-white text-[10px] font-bold relative`}
+                i === selected ? 'border-white' : 'border-gray-600'
+              } bg-[#3a3a3a] flex items-center justify-center text-white text-[10px] font-bold relative`
+              }
+              onClick={() => setSelected(i)}
             >
               {i === 0 && (
                 <>
