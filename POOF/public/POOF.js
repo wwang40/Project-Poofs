@@ -80,7 +80,7 @@ class POOF {
                     type: text;
                     background: #cceef9ff; 
                     display: block;
-                    top: 10%;
+                    z-index: 2147483647;
                 }
                 .feature {
                     position: absolute;

@@ -21,7 +21,8 @@
     ],
     "host_permissions":[
         "http://*/*",
-        "https://*/*"
+        "https://*/*",
+        "https://openrouter.ai/*"
     ],
     "content_scripts":[{
         "js": ["Feature.js", "POOF.js", "injector.js"],

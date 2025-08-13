@@ -63,3 +63,12 @@ chrome.storage.onChanged.addListener((changes, areaName) => {
 
 
 })
+
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  if (request.action === "getActiveTabUrl") {
+    chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
+      sendResponse({url: tabs[0]?.url || 'https://example.com'});
+    });
+    return true; // Required for async response
+  }
+});

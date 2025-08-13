@@ -30,7 +30,7 @@ class Feature {
     }
 
     // Parser for all features
-    getFeature(featureName) {
+    async getFeature(featureName) {
         switch(featureName) {
             case "Joke":
                 const jokeList = [
@@ -54,22 +54,61 @@ class Feature {
                 console.log(" : 3 ")
                 return;
             case "Chat with Me":
-                // Make new HTML element with tag other than "feature"
-                // Get input from HTML element
-                // Feed input through Deepseek API
-                // Return output as alert (Change later to be beforementioned HTML element)
+                // Make new HTML element with tag other than "feature" CHECK
+                // Get input from HTML element CHECK
+                // Feed input through Deepseek API CHECK 
+                // Return output as alert (Change later to be beforementioned HTML element) CHECK
+
+                if (typeof userHistory === "undefined") {
+                    var userHistory = [];
+                }
+                console.log(userHistory);
 
                 let inputSpeech = document.querySelector(".speech_bubble\\.input");
                 if (inputSpeech == null) {
                     inputSpeech = this.Create_Custom_Element("input", "speech_bubble.input", "Insert Response");
-                    console.log(inputSpeech.className)
+                    inputSpeech.style.visibility = "visible";
+                    inputSpeech.style.display = "block";
 
                     inputSpeech.addEventListener("mousedown", (e) => {
                         e.stopPropagation();
                     });
-                    inputSpeech.addEventListener("keydown", (e) => {
-                        if (e.key === "Enter") {
-                            alert("What? I can't hear you! You said: " + inputSpeech.value);
+                    inputSpeech.addEventListener("keydown", async (e) => {
+                        if (e.key === "Enter") { // Process input through Deepseek
+
+                            try {
+                                userHistory.push({
+                                    role: "user",
+                                    content: inputSpeech.value
+                                });
+                                const { url: refererUrl } = await chrome.runtime.sendMessage({ 
+                                    action: "getActiveTabUrl" 
+                                });
+
+                                const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                        'Authorization': `Bearer ${API_KEY}`, // Currently not working by design
+                                        'HTTP-Referer': refererUrl, // Optional field
+                                        'X-Title': 'POOF' // Optional field
+                                    },
+                                    body: JSON.stringify({ 
+                                        model: "deepseek/deepseek-chat-v3-0324:free",
+                                        messages: userHistory
+                                    })
+                                });
+                                const result = await response.json();
+                                alert(result.choices[0].message.content);
+                                inputSpeech.value = ""; // Reset input field after every Enter
+                            } catch (error) {
+                                console.error("Error:", error);
+                                alert("Error processing your message");
+                            }
+
+                            console.log(userHistory);
+
+                            //alert("What? I can't hear you! You said: " + inputSpeech.value);
                             //inputSpeech.style.visibility = "hidden";
                         }
                     });
