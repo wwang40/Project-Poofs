@@ -2,13 +2,31 @@
 
 class Feature {
     constructor(name, num) {
-        this.name = name
-        this.num = num
+        this.name = name;
+        this.num = num;
         this.css_element;
     }
 
     getCSS() {
         return this.css_element;
+    }
+
+    // Adds HTML element to webpage which we can change through functions
+    Create_Custom_Element(tag, attr_name, text) {
+        const custom_element = document.createElement(tag);
+        custom_element.className = attr_name;
+        custom_element.textContent = text;
+        custom_element.name = text;
+        document.body.append(custom_element);
+
+        custom_element.style.top = (this.num * 20).toString() + "px";
+
+        custom_element.addEventListener("click", () => {
+            this.getFeature(text);
+        });
+
+        this.css_element = custom_element;
+        return custom_element;
     }
 
     // Parser for all features
@@ -35,51 +53,40 @@ class Feature {
                 // 
                 console.log(" : 3 ")
                 return;
+            case "Chat with Me":
+                // Make new HTML element with tag other than "feature"
+                // Get input from HTML element
+                // Feed input through Deepseek API
+                // Return output as alert (Change later to be beforementioned HTML element)
+
+                let inputSpeech = document.querySelector(".speech_bubble\\.input");
+                if (inputSpeech == null) {
+                    inputSpeech = this.Create_Custom_Element("input", "speech_bubble.input", "Insert Response");
+                    console.log(inputSpeech.className)
+
+                    inputSpeech.addEventListener("mousedown", (e) => {
+                        e.stopPropagation();
+                    });
+                    inputSpeech.addEventListener("keydown", (e) => {
+                        if (e.key === "Enter") {
+                            alert("What? I can't hear you! You said: " + inputSpeech.value);
+                            //inputSpeech.style.visibility = "hidden";
+                        }
+                    });
+
+                    (document.getElementsByClassName("poof")[0]).appendChild(inputSpeech);
+                } else {
+                    const isVisible = (inputSpeech.style.visibility === "visible");
+                    inputSpeech.style.visibility = isVisible ? "hidden" : "visible";
+                    inputSpeech.style.display = isVisible ? "none" : "block";
+                }
+                
+                return;
             default:
                 console.log("Feature does not exist");
                 return;
         }
     }
-
-    // Adds HTML element to webpage which we can change through functions
-    Create_Custom_Element(name) {
-        const Add_Custom_CSS = css => document.head.appendChild(document.createElement("style")).innerHTML = css
-
-        Add_Custom_CSS(`
-            .feature {
-                position: absolute;
-                width: 150px !important;
-                height: 20px !important;
-                margin-top: 0px !important;
-                padding: 0 !important;
-                background: transparent;
-                z-index: 2147483647; /* Maximum possible */
-                transform: translateZ(0);
-                box-sizing: content-box !important;
-                display: none;
-                right: 0px;
-                top: 0px;
-                font-size: 15px;
-            }
-        `)
-
-
-        const custom_element = document.createElement("div");
-        custom_element.className = "feature";
-        custom_element.textContent = name;
-        document.body.append(custom_element);
-
-        custom_element.style.top = (this.num * 20).toString() + "px";
-
-        custom_element.addEventListener("click", () => {
-            this.getFeature(name);
-        });
-
-        this.css_element = custom_element;
-    }
-
-
-
 
 
 }

@@ -1,4 +1,4 @@
-const onDisplay = new POOF("POOF1", "POOF1.png", 1, ["Joke", "Words of Affirmation", "Cat Picture"], "I am a POOF whose only purpose in life is to serve as a placeholder for testing.");
+const onDisplay = new POOF("POOF1", "POOF1.png", 1, ["Joke", "Words of Affirmation", "Cat Picture", "Chat with Me"], "I am a POOF whose only purpose in life is to serve as a placeholder for testing.");
 
 chrome.runtime.onMessage.addListener((message) => {
     if (message.type === "POOF_UPDATE") {

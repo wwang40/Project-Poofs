@@ -1,6 +1,7 @@
 class POOF {
     constructor(name, img, rarity, features, description) {
         if (!(name & img & rarity & features & description)) {
+            console.log("Using default POOF settings");
             this.name = "POOF1";
             this.img = "POOF1.png";
             this.rarity = 1;
@@ -71,7 +72,30 @@ class POOF {
                     right: 110% !important;
                     top: 0% !important;
                     display: none;
+                    visibility: hidden;
                     margin-top: 0px !important;
+                }
+                .speech_bubble.input {
+                    position: absolute;
+                    type: text;
+                    background: #cceef9ff; 
+                    display: block;
+                    top: 10%;
+                }
+                .feature {
+                    position: absolute;
+                    width: 150px !important;
+                    height: 20px !important;
+                    margin-top: 0px !important;
+                    padding: 0 !important;
+                    background: transparent;
+                    z-index: 2147483647; /* Maximum possible */
+                    transform: translateZ(0);
+                    box-sizing: content-box !important;
+                    visibility: hidden;
+                    right: 0px;
+                    top: 0px;
+                    font-size: 15px;
                 }
             `)
     }
@@ -119,8 +143,6 @@ class POOF {
             // Update position
             elmnt.style.left = (newX - 40) + "px";
             elmnt.style.top = (newY - 10) + "px";
-            console.log(newX - 40);
-            console.log(newY - 10);
         }
 
         function closeDragElement() {
@@ -193,7 +215,7 @@ class POOF {
 
         for (let i = 0; i < this.features.length; i ++) {
             let feature = new Feature(this.features[i].toString, i);
-            feature.Create_Custom_Element(this.features[i].toString());
+            feature.Create_Custom_Element("div", "feature", this.features[i].toString());
             speech_bubble.appendChild(feature.getCSS())
         }
 
@@ -203,18 +225,20 @@ class POOF {
     handleFeatureDisplay(document) {
         let elements = document.getElementsByClassName("feature");
         Array.from(elements).forEach(element => {
-            if (element.style.display == "block") {
-                element.style.display = "none"
+            if (element.style.visibility == "visible") {
+                element.style.visibility = "hidden"
             } else {
-                element.style.display = "block"
+                element.style.visibility = "visible"
             }
         })
         elements = document.getElementsByClassName("speech_bubble");
         Array.from(elements).forEach(element => {
-            if (element.style.display == "block") {
-                element.style.display = "none"
+            if (element.style.visibility == "visible") {
+                element.style.visibility = "hidden";
+                element.style.display = "none";
             } else {
-                element.style.display = "block"
+                element.style.visibility = "visible";
+                element.style.display = "block";
             }
         })
     }
